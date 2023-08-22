@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:hospital_app/models/MedicalAnalysisResponse.dart';
+import 'package:hospital_app/models/PatientRes.dart';
 import 'package:hospital_app/models/PatientResponse.dart';
 import 'package:http/http.dart' as http;
 
@@ -8,6 +9,8 @@ import '../models/PatientInformation.dart';
 
 class ApiManager {
   static const String baseUrl = "momahgoub172-001-site1.atempurl.com";
+
+  static addPatient(PatientRes p) {}
 
   static Future<PatientInformation> getAllPatientInfo(String id) async {
     var url = Uri.http(baseUrl, '/api/Patient/GetPatientInfo', {'nid': id});
@@ -75,7 +78,7 @@ class ApiManager {
       'Content-Type': 'application/json',
     };
     String apiUrl =
-        'http://momahgoub172-001-site1.atempurl.com/api/MedicalAnalysis/GetMedicalAnalysesByPatientNID?nid=987654321';
+        'http://momahgoub172-001-site1.atempurl.com/api/MedicalAnalysis/AddMedicalAnalysis';
     http.Response response =
         await http.post(Uri.parse(apiUrl), headers: headers, body: jsonData);
     if (response.statusCode == 200) {

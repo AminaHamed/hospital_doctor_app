@@ -16,9 +16,6 @@ class PatientRegistrationController extends GetxController {
     if (!(value.isNumericOnly)) {
       return 'Only Numbers should be Entered.';
     }
-    // if ( value.isNumericOnly &&  value.length != 14) {
-    //   return 'Number should be exactly 14 digits long.';
-    // }
     return null;
   }
 

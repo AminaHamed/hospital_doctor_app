@@ -1,13 +1,10 @@
-import 'dart:convert';
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hospital_app/api/api_manager.dart';
-import 'package:hospital_app/models/MedicalAnalysisResponse.dart';
 import 'package:hospital_app/models/PatientInformation.dart';
-import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
-import 'package:flutter_datetime_picker_plus/flutter_datetime_picker_plus.dart';
 
 class AddMedicalAnalysisController extends GetxController {
   File? _pickedImage;
@@ -46,11 +43,11 @@ class AddMedicalAnalysisController extends GetxController {
 
   addAnalysis() async {
     MedicalAnalysis myTest = MedicalAnalysis();
-    myTest.patientId = '987654321';
-    myTest.analysisId = 3;
-    myTest.analysisDate = '7/6/2024';
+    myTest.patientId = '1234567891234567';
+    // myTest.analysisId = 3;
+    // myTest.analysisDate = '7/6/2024';
     myTest.notes = 'this is a note';
-    myTest.analysisImage = pickedImage?.path;
+    // myTest.analysisImage = pickedImage?.path;
 
     await ApiManager.sendMedicalAnalysis(myTest);
   }

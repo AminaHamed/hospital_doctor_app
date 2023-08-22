@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       theme: AppTheme.myTheme,
       routes: routes,
-      initialRoute: AppRoutes.patientRegistration,
+      initialRoute: AppRoutes.addPatient,
     );
   }
 }

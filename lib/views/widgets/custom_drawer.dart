@@ -17,12 +17,10 @@ class CustomDrawer extends StatelessWidget {
           child: Column(
             children: [
               InkWell(
-                // hoverColor: AppColor.primaryColor,
-                // focusColor: AppColor.primaryColor,
+                hoverColor: AppColor.primaryColor,
+                focusColor: AppColor.primaryColor,
                 borderRadius: BorderRadius.circular(20),
                 onTap: () {
-                  //TODO solve on tap problems
-                  print('jjjjjjjjjjjjjjjjjj');
                   Get.toNamed(AppRoutes.patientRegistration);
                 },
                 child: Row(
@@ -36,7 +34,7 @@ class CustomDrawer extends StatelessWidget {
                       width: 8,
                     ),
                     Text(
-                      'Patients',
+                      'View Patient',
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium!
@@ -44,7 +42,37 @@ class CustomDrawer extends StatelessWidget {
                     )
                   ],
                 ),
-              )
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              InkWell(
+                hoverColor: AppColor.primaryColor,
+                focusColor: AppColor.primaryColor,
+                borderRadius: BorderRadius.circular(20),
+                onTap: () {
+                  Get.toNamed(AppRoutes.addPatient);
+                },
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.person,
+                      size: 35,
+                      color: AppColor.grey,
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    Text(
+                      'Add Patient',
+                      style: Theme.of(context)
+                          .textTheme
+                          .titleMedium!
+                          .copyWith(color: AppColor.grey),
+                    )
+                  ],
+                ),
+              ),
             ],
           ),
         ),
