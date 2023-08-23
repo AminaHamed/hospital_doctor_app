@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -54,27 +56,15 @@ class XRayItem extends StatelessWidget {
                 onTap: () {
                   Get.defaultDialog(
                       title: 'image',
-                      content: Image.asset('assets/images/tesr.PNG'));
+                      content: xRay!.xRayImage!.isNotEmpty
+                          ? Image.memory(
+                              base64Decode(xRay?.xRayImage ?? ''),
+                              width: 200,
+                              height: 200,
+                            )
+                          : const Text('No Image to display'));
                 },
               ),
-              // CustomFormButton(text: 'View image',
-              //   onPressed: (){
-              //     Get.defaultDialog(
-              //         title: 'image',
-              //         content:Image.asset('assets/images/tesr.PNG')
-              // Base64ImageDisplay(url??'')
-              // CachedNetworkImage(
-              //   imageUrl:url??'',
-              //   progressIndicatorBuilder: (context, url, downloadProgress) =>
-              //       Center(child: CircularProgressIndicator(value: downloadProgress.progress)),
-              //   errorWidget: (context, url, error) => const Icon(Icons.error),
-              // ),
-
-              // )
-
-              // },
-
-              // ),
             ],
           ),
         ),

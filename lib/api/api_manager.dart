@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:hospital_app/models/AddChronicRes.dart';
 import 'package:hospital_app/models/AddVisitRes.dart';
 import 'package:hospital_app/models/MedicalAnalysisResponse.dart';
 import 'package:hospital_app/models/PatientResponse.dart';
@@ -10,6 +11,23 @@ import '../models/PatientInformation.dart';
 
 class ApiManager {
   static const String baseUrl = "momahgoub172-001-site1.atempurl.com";
+
+  static Future<http.Response?> addChronic(AddChronicRes addChronicRes) async {
+    String apiUrl =
+        'http://momahgoub172-001-site1.atempurl.com/api/ChronicDisease/AddChronicDisease';
+    try {
+      Map<String, dynamic> map = addChronicRes.toJson();
+      String jsonData = json.encode(map);
+      Map<String, String> headers = {
+        'accept': '*/*',
+        'Content-Type': 'application/json',
+      };
+      return await http.post(Uri.parse(apiUrl),
+          headers: headers, body: jsonData);
+    } catch (e) {
+      print(e);
+    }
+  }
 
   static Future<http.Response?> addVisit(
       String id, AddVisitRes addVisitRes) async {
