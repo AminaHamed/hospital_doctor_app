@@ -79,7 +79,7 @@ class AddMedicalAnalysisScreen extends StatelessWidget {
               CustomFormButton(
                   text: 'Send',
                   onPressed: () async {
-                    controller.sendAnalysisWithImage(patientID);
+                    // controller.sendAnalysisWithImage(patientID);
                   })
             ],
           ),

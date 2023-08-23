@@ -79,4 +79,11 @@ class AddChronicDiseaseController extends GetxController {
     }
     //''
   }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    treatingController.dispose();
+    super.dispose();
+  }
 }

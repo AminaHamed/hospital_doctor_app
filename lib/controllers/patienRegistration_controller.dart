@@ -49,4 +49,10 @@ class PatientRegistrationController extends GetxController {
           });
     }
   }
+
+  @override
+  void dispose() {
+    numberController.dispose();
+    super.dispose();
+  }
 }

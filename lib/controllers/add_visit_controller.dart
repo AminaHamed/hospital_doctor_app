@@ -96,4 +96,11 @@ class AddVisitController extends GetxController {
     }
     //''
   }
+
+  @override
+  void dispose() {
+    diagnosisController.dispose();
+    pharmaceuticalController.dispose();
+    super.dispose();
+  }
 }

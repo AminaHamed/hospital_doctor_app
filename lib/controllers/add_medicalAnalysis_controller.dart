@@ -92,4 +92,10 @@ class AddMedicalAnalysisController extends GetxController {
       print('No image picked');
     }
   }
+
+  @override
+  void dispose() {
+    notesController.dispose();
+    super.dispose();
+  }
 }
