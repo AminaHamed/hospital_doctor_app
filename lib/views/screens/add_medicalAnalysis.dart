@@ -15,6 +15,7 @@ class AddMedicalAnalysisScreen extends StatelessWidget {
 
   final AddMedicalAnalysisController controller =
       Get.put(AddMedicalAnalysisController());
+  final patientID = Get.arguments.toString();
 
   @override
   Widget build(BuildContext context) {
@@ -50,9 +51,10 @@ class AddMedicalAnalysisScreen extends StatelessWidget {
                   ),
                   Expanded(
                       child: CustomTextFormField(
-                    label: 'notes',
+                        label: 'notes',
                     keyboardType: TextInputType.multiline,
                     maxLines: 2,
+                    controller: controller.notesController,
                   ))
                 ],
               ),
@@ -77,7 +79,7 @@ class AddMedicalAnalysisScreen extends StatelessWidget {
               CustomFormButton(
                   text: 'Send',
                   onPressed: () async {
-                    controller.addAnalysis();
+                    controller.sendAnalysisWithImage(patientID);
                   })
             ],
           ),
