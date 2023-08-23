@@ -26,11 +26,7 @@ class XRaysTab extends StatelessWidget {
               } else if (snapshot.hasError) {
                 return Center(
                     child: Text('Error loading: ${snapshot.error.toString()}'));
-              } else if (!snapshot.hasData ||
-                  snapshot.data!.xRay == null ||
-                  snapshot.data?.xRay?.length == 0) {
-                return const Text('No xRays available for this Patient yet.');
-              } else {
+              } else if (snapshot.hasData && snapshot.data!.xRay!.isNotEmpty) {
                 final data = snapshot.data?.xRay;
                 return Expanded(
                   child: ListView.builder(
@@ -42,25 +38,10 @@ class XRaysTab extends StatelessWidget {
                     },
                   ),
                 );
+              } else {
+                return const Text('No xRays available for this Patient yet.');
               }
             },
-
-            //   } else if (snapshot.hasData && snapshot.data?.xRay != null) {
-            //     final data = snapshot.data?.xRay;
-            //     return Expanded(
-            //       child: ListView.builder(
-            //         itemCount: data?.length ?? 0,
-            //         itemBuilder: (_, index) {
-            //           return XRayItem(
-            //             xRay: data?[index],
-            //           );
-            //         },
-            //       ),
-            //     );
-            //   } else {
-            //     return const Center(child: Text('No data available yet.'));
-            //   }
-            // },
           ),
           CustomFormButton(text: 'Add New', onPressed: () {})
         ],

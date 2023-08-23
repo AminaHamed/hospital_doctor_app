@@ -27,12 +27,8 @@ class ChronicDiseasesTab extends StatelessWidget {
               } else if (snapshot.hasError) {
                 return Center(
                     child: Text('Error loading: ${snapshot.error.toString()}'));
-              } else if (!snapshot.hasData ||
-                  snapshot.data!.chronicDisease == null ||
-                  snapshot.data?.chronicDisease?.length == 0) {
-                return const Text(
-                    'No chronicDisease available for this Patient yet.');
-              } else {
+              } else if (snapshot.hasData &&
+                  snapshot.data!.chronicDisease!.isNotEmpty) {
                 final data = snapshot.data?.chronicDisease;
                 return Expanded(
                   child: ListView.builder(
@@ -42,6 +38,9 @@ class ChronicDiseasesTab extends StatelessWidget {
                     },
                   ),
                 );
+              } else {
+                return const Text(
+                    'No chronicDisease available for this Patient yet.');
               }
             },
           ),

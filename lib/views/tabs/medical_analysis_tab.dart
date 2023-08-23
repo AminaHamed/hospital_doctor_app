@@ -11,10 +11,10 @@ import '../widgets/medical_analysis_item.dart';
 class MedicalAnalysisTab extends StatelessWidget {
   MedicalAnalysisTab({Key? key}) : super(key: key);
   final controller = Get.put(MedicalAnalysisController());
+  final args = Get.arguments as Map<String, dynamic>;
 
   @override
   Widget build(BuildContext context) {
-    final args = Get.arguments as Map<String, dynamic>;
     final String patientID = args['patientID'] ?? '';
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 10),
@@ -29,12 +29,8 @@ class MedicalAnalysisTab extends StatelessWidget {
               } else if (snapshot.hasError) {
                 return Center(
                     child: Text('Error loading: ${snapshot.error.toString()}'));
-              } else if (!snapshot.hasData ||
-                  snapshot.data!.medicalAnalysis == null ||
-                  snapshot.data?.medicalAnalysis?.length == 0) {
-                return const Text(
-                    'No medicalAnalysis available for this Patient yet.');
-              } else {
+              } else if (snapshot.hasData &&
+                  snapshot.data!.medicalAnalysis!.isNotEmpty) {
                 final data = snapshot.data?.medicalAnalysis;
                 return Expanded(
                   child: ListView.builder(
@@ -44,13 +40,16 @@ class MedicalAnalysisTab extends StatelessWidget {
                     },
                   ),
                 );
+              } else {
+                return const Text(
+                    'No medicalAnalysis available for this Patient yet.');
               }
             },
           ),
           CustomFormButton(
               text: 'Add New',
               onPressed: () {
-                Get.toNamed(AppRoutes.addAnalysis);
+                Get.toNamed(AppRoutes.addAnalysis, arguments: patientID);
               })
         ],
       ),
