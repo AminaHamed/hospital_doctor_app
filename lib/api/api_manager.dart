@@ -132,7 +132,7 @@ class ApiManager {
     Map<String, dynamic> map = object.toJson();
     String jsonData = json.encode(map);
     Map<String, String> headers = {
-      'Content-Type': 'application/json',
+      'Content-Type': 'multipart/form-data',
     };
     String apiUrl =
         'http://momahgoub172-001-site1.atempurl.com/api/MedicalAnalysis/AddMedicalAnalysis';
@@ -140,8 +140,10 @@ class ApiManager {
         await http.post(Uri.parse(apiUrl), headers: headers, body: jsonData);
     if (response.statusCode == 200) {
       print('Data sent successfully!');
+      print('Failed to send data. Error: ${response.body}');
     } else {
       print('Failed to send data. Error: ${response.statusCode}');
+      print('Failed to send data. Error: ${response.body}');
     }
   }
 }

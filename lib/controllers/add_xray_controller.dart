@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
-class AddMedicalAnalysisController extends GetxController {
+class AddXRayController extends GetxController {
   File? _pickedImage;
   DateTime selectedData = DateTime.now();
   TextEditingController notesController = TextEditingController();
@@ -45,8 +45,7 @@ class AddMedicalAnalysisController extends GetxController {
 
   Future<void> sendToServer(String id) async {
     //TODo handel image file
-    String url =
-        'http://momahgoub172-001-site1.atempurl.com/api/MedicalAnalysis/AddMedicalAnalysis';
+    String url = 'http://momahgoub172-001-site1.atempurl.com/api/XRay/AddXRay';
     String patientId = id;
     String notes = notesController.text;
 

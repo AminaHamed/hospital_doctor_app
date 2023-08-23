@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hospital_app/api/api_manager.dart';
+import 'package:hospital_app/core/constants/app_routes.dart';
 import 'package:hospital_app/models/PatientInformation.dart';
 import 'package:hospital_app/views/widgets/xRay_item.dart';
 
@@ -8,10 +9,10 @@ import '../widgets/custom_formButton.dart';
 
 class XRaysTab extends StatelessWidget {
   XRaysTab({Key? key}) : super(key: key);
+  final args = Get.arguments as Map<String, dynamic>;
 
   @override
   Widget build(BuildContext context) {
-    final args = Get.arguments as Map<String, dynamic>;
     final String patientID = args['patientID'] ?? '';
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
@@ -43,7 +44,11 @@ class XRaysTab extends StatelessWidget {
               }
             },
           ),
-          CustomFormButton(text: 'Add New', onPressed: () {})
+          CustomFormButton(
+              text: 'Add New',
+              onPressed: () {
+                Get.toNamed(AppRoutes.addXRay, arguments: patientID);
+              })
         ],
       ),
     );

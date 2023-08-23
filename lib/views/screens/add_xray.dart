@@ -6,22 +6,22 @@ import 'package:hospital_app/views/widgets/custom_text.dart';
 import 'package:hospital_app/views/widgets/custom_textFormField.dart';
 
 import '../../controllers/add_medicalAnalysis_controller.dart';
+import '../../controllers/add_xray_controller.dart';
 import '../../utils/date_widget.dart';
 import '../widgets/custom_image_btn.dart';
 import '../widgets/custom_outlineBorder_text.dart';
 
-class AddMedicalAnalysisScreen extends StatelessWidget {
-  AddMedicalAnalysisScreen({Key? key}) : super(key: key);
+class AddXRayScreen extends StatelessWidget {
+  AddXRayScreen({Key? key}) : super(key: key);
 
-  final AddMedicalAnalysisController controller =
-      Get.put(AddMedicalAnalysisController());
+  final AddXRayController controller = Get.put(AddXRayController());
   final patientID = Get.arguments.toString();
   var formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(text: 'Add New Medical Analysis'),
+      appBar: const CustomAppBar(text: 'Add New XRay'),
       body: Container(
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
         child: SingleChildScrollView(
