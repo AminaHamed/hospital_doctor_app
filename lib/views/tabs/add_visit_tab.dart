@@ -9,49 +9,63 @@ import '../widgets/custom_text.dart';
 
 class AddVisitTab extends StatelessWidget {
   AddVisitTab({Key? key}) : super(key: key);
+
   AddVisitController controller = Get.put(AddVisitController());
+  var formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
+    final args = Get.arguments as Map<String, dynamic>;
+    final String patientID = args['patientID'] ?? '';
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
       child: SingleChildScrollView(
-        child: Column(
-          children: [
-            CustomText(text: 'Date'),
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 15),
-              child: Row(
-                children: [
-                  GetBuilder<AddVisitController>(builder: (controller) {
-                    return DateWidget(
-                        selectedDate: controller.selectedData,
-                        onTap: () {
-                          controller.showMyDatePicker(context);
-                        });
-                  }),
-                ],
+        child: Form(
+          key: formKey,
+          child: Column(
+            children: [
+              CustomText(text: 'Date'),
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 15),
+                child: Row(
+                  children: [
+                    GetBuilder<AddVisitController>(builder: (controller) {
+                      return DateWidget(
+                          selectedDate: controller.selectedData,
+                          onTap: () {
+                            controller.showMyDatePicker(context);
+                          });
+                    }),
+                  ],
+                ),
               ),
-            ),
-            // CustomTextFormField(label: 'mm/dd/yyyy',
-            // icon: const Icon(Icons.calendar_month,color: AppColor.grey,),
-            // keyboardType: TextInputType.datetime
-            // ),
-
-            CustomText(text: 'Diagnosis'),
-            CustomTextFormField(
-              label: 'description',
-              keyboardType: TextInputType.multiline,
-              maxLines: 2,
-            ),
-            CustomText(text: 'Pharmaceutical'),
-            CustomTextFormField(
-              label: 'description',
-              keyboardType: TextInputType.multiline,
-              maxLines: 3,
-            ),
-            CustomFormButton(text: 'Submit', onPressed: () {})
-          ],
+              CustomText(text: 'Diagnosis'),
+              CustomTextFormField(
+                label: 'description',
+                keyboardType: TextInputType.multiline,
+                maxLines: 2,
+                controller: controller.diagnosisController,
+                validator: (value) => controller.validateDiagnosis(value!),
+              ),
+              CustomText(text: 'Pharmaceutical'),
+              CustomTextFormField(
+                label: 'description',
+                keyboardType: TextInputType.multiline,
+                maxLines: 3,
+                controller: controller.pharmaceuticalController,
+                validator: (value) => controller.validatePharmaceutical(value!),
+              ),
+              CustomFormButton(
+                  text: 'Submit',
+                  onPressed: () {
+                    if (formKey.currentState?.validate() == false) {
+                      return;
+                    } else {
+                      controller.sendData(patientID);
+                    }
+                  })
+            ],
+          ),
         ),
       ),
     );

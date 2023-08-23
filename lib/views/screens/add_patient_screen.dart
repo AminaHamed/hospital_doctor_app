@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hospital_app/controllers/add_newPatient_controller.dart';
@@ -7,9 +5,7 @@ import 'package:hospital_app/views/widgets/custom_appBar.dart';
 import 'package:hospital_app/views/widgets/custom_drawer.dart';
 import 'package:hospital_app/views/widgets/custom_formButton.dart';
 import 'package:hospital_app/views/widgets/custom_textFormField.dart';
-import 'package:http/http.dart' as http;
 
-import '../../models/PatientRes.dart';
 import '../widgets/custom_text.dart';
 
 class AddPatientScreen extends StatelessWidget {
@@ -111,21 +107,8 @@ class AddPatientScreen extends StatelessWidget {
                       if (formKey.currentState?.validate() == false) {
                         return;
                       } else {
-                        // PatientRes p=PatientRes();
-                        // p.nid=controller.idController.text;
-                        // p.fullName=controller.nameController.text;
-                        // p.phoneNumber=controller.phoneController.text;
-                        // p.gender=controller.genderController.text;
-                        // p.age= int.parse(controller.ageController.text);
                         controller.sendData();
                       }
-                      // PatientRes p=PatientRes();
-                      // p.fullName='amin';
-                      // p.gender='male';
-                      // p.nid='12345';
-                      // p.phoneNumber='1234';
-                      // p.age=30;
-                      // testSend(p);
                     })
               ],
             ),
@@ -135,21 +118,4 @@ class AddPatientScreen extends StatelessWidget {
     );
   }
 
-  Future<void> testSend(PatientRes patient) async {
-    Map<String, dynamic> map = patient.toJson();
-    String jsonData = json.encode(map);
-    Map<String, String> headers = {
-      'Content-Type': 'application/json',
-    };
-    String apiUrl =
-        'http://momahgoub172-001-site1.atempurl.com/api/Doctors/AddPatient';
-    http.Response response =
-        await http.post(Uri.parse(apiUrl), headers: headers, body: jsonData);
-    if (response.statusCode == 200) {
-      print('Data sent successfully!');
-    } else {
-      print('Failed to send data. Error: ${response.statusCode}');
-      print('Response Body: ${response.body}');
-    }
-  }
 }

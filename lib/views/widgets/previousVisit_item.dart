@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:hospital_app/models/VisitsRes.dart';
 
 import 'custom_outlineBorder_text.dart';
 import 'custom_text.dart';
 
 class PreviousVisitItem extends StatelessWidget {
-  const PreviousVisitItem({Key? key}) : super(key: key);
+  PreviousVisitItem({Key? key, this.visitsRes}) : super(key: key);
+  VisitsRes? visitsRes;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class PreviousVisitItem extends StatelessWidget {
                   const SizedBox(
                     width: 8,
                   ),
-                  CustomOutlineBorderText(text: 'mm/dd/yyyy')
+                  CustomOutlineBorderText(text: visitsRes?.visitDate ?? '')
                 ],
               ),
               const SizedBox(
@@ -37,7 +39,7 @@ class PreviousVisitItem extends StatelessWidget {
                   const SizedBox(
                     width: 8,
                   ),
-                  CustomOutlineBorderText(text: 'Diagnosis')
+                  CustomOutlineBorderText(text: visitsRes?.diagnosis ?? '')
                 ],
               ),
               const SizedBox(
@@ -49,7 +51,7 @@ class PreviousVisitItem extends StatelessWidget {
                   const SizedBox(
                     width: 8,
                   ),
-                  CustomOutlineBorderText(text: 'Pharmaceutical')
+                  CustomOutlineBorderText(text: visitsRes?.pharmaceutical ?? '')
                 ],
               ),
             ],

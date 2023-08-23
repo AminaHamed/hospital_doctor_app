@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -52,30 +54,16 @@ class MedicalAnalysisItem extends StatelessWidget {
               onTap: () {
                 Get.defaultDialog(
                     title: 'image',
-                    content: Image.asset('assets/images/tesr.PNG'));
+                    content: medicalAnalysis!.analysisImage!.isNotEmpty
+                        ? Image.memory(
+                            base64Decode(medicalAnalysis?.analysisImage ?? ''),
+                            width: 200,
+                            height: 200,
+                          )
+                        : const Text('No Image to display'));
+                // Image.asset('assets/images/tesr.PNG'));
               },
             ),
-            // CustomFormButton(text: 'View image',
-            //     onPressed: (){
-            //   Get.defaultDialog(
-            //     title: 'image',
-            //     content:Image.asset('assets/images/tesr.PNG')
-            //     // Base64ImageDisplay(url??'')
-            //     // CachedNetworkImage(
-            //     //   imageUrl:url??'',
-            //     //   progressIndicatorBuilder: (context, url, downloadProgress) =>
-            //     //       Center(child: CircularProgressIndicator(value: downloadProgress.progress)),
-            //     //   errorWidget: (context, url, error) => const Icon(Icons.error),
-            //     // ),
-            //
-            //   );
-            //     },
-            //
-            //     ),
-            // Base64ImageDisplay(url??'')
-            // Container(
-            //   child: Image.asset('assets/images/tesr.PNG'),
-            // )
           ],
         ),
       ),

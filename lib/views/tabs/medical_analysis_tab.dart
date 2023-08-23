@@ -29,8 +29,12 @@ class MedicalAnalysisTab extends StatelessWidget {
               } else if (snapshot.hasError) {
                 return Center(
                     child: Text('Error loading: ${snapshot.error.toString()}'));
-              } else if (snapshot.hasData &&
-                  snapshot.data?.medicalAnalysis != null) {
+              } else if (!snapshot.hasData ||
+                  snapshot.data!.medicalAnalysis == null ||
+                  snapshot.data?.medicalAnalysis?.length == 0) {
+                return const Text(
+                    'No medicalAnalysis available for this Patient yet.');
+              } else {
                 final data = snapshot.data?.medicalAnalysis;
                 return Expanded(
                   child: ListView.builder(
@@ -40,8 +44,6 @@ class MedicalAnalysisTab extends StatelessWidget {
                     },
                   ),
                 );
-              } else {
-                return const Center(child: Text('No data available yet.'));
               }
             },
           ),

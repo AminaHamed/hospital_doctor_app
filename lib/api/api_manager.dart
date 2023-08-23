@@ -1,8 +1,9 @@
 import 'dart:convert';
 
+import 'package:hospital_app/models/AddVisitRes.dart';
 import 'package:hospital_app/models/MedicalAnalysisResponse.dart';
-import 'package:hospital_app/models/PatientRes.dart';
 import 'package:hospital_app/models/PatientResponse.dart';
+import 'package:hospital_app/models/VisitsRes.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/PatientInformation.dart';
@@ -10,7 +11,31 @@ import '../models/PatientInformation.dart';
 class ApiManager {
   static const String baseUrl = "momahgoub172-001-site1.atempurl.com";
 
-  static addPatient(PatientRes p) {}
+  static Future<http.Response?> addVisit(
+      String id, AddVisitRes addVisitRes) async {
+    String apiUrl =
+        'http://momahgoub172-001-site1.atempurl.com/api/PreviousVisits/AddVisit?PatientId=$id';
+    try {
+      // Map<String, dynamic> map = addVisitRes.toJson();
+      List<Map<String, dynamic>> data = [
+        {
+          "visitDate": addVisitRes.visitDate.toString(),
+          "diagnosis": addVisitRes.pharmaceutical.toString(),
+          "pharmaceutical": addVisitRes.diagnosis.toString()
+        }
+      ];
+      // String jsonData = json.encode(map);
+      String jsonData = json.encode(data);
+      Map<String, String> headers = {
+        'accept': '*/*',
+        'Content-Type': 'application/json',
+      };
+      return await http.post(Uri.parse(apiUrl),
+          headers: headers, body: jsonData);
+    } catch (e) {
+      print(e);
+    }
+  }
 
   static Future<PatientInformation> getAllPatientInfo(String id) async {
     var url = Uri.http(baseUrl, '/api/Patient/GetPatientInfo', {'nid': id});
@@ -26,23 +51,37 @@ class ApiManager {
     return Stream.fromFuture(getAllPatientInfo(id));
   }
 
+  static Future<List<VisitsRes>> getPreviousVisits(String id) async {
+    String apiUrl =
+        'http://momahgoub172-001-site1.atempurl.com/api/PreviousVisits/GetAllVisitsByPatientId?id=$id';
+    http.Response response = await http.get(Uri.parse(apiUrl));
+
+    if (response.statusCode == 200) {
+      List<dynamic> jsonData = json.decode(response.body);
+      List<VisitsRes> visits =
+          jsonData.map((data) => VisitsRes.fromJson(data)).toList();
+      return visits;
+    } else {
+      throw Exception('Failed to fetch data');
+    }
+  }
+
+  static Stream<List<VisitsRes>> getPreviousVisitsStream(String id) {
+    return Stream.fromFuture(getPreviousVisits(id));
+  }
+
   static getPatientByID(String ID) async {
     var url = Uri.http(baseUrl, '/api/Patient/GetPatientByNID', {'nid': ID});
 
     final response = await http.get(url);
 
     if (response.statusCode == 200) {
-      // print(response.body);
-      // PatientResponse patientResponse= PatientResponse.
-      // fromJson(jsonDecode(response.body));
       return 'Successful ID';
     } else if (response.statusCode == 204) {
       //no user with this id
       return 'no user with this id';
-      print('no user with this id');
     } else if (response.statusCode == 400) {
       return 'The nid field is required';
-      print('The nid field is required');
     } else {
       return throw Exception('Failed to load Patient try again later');
     }
