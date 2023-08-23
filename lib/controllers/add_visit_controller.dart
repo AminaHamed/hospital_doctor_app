@@ -77,6 +77,8 @@ class AddVisitController extends GetxController {
             Get.back(canPop: false);
           });
       print('Data sent successfully!');
+      diagnosisController.text = '';
+      pharmaceuticalController.text = '';
     } else {
       Get.defaultDialog(
           content: Text(

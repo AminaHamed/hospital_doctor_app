@@ -60,6 +60,8 @@ class AddChronicDiseaseController extends GetxController {
             Get.back(canPop: false);
           });
       print('Data sent successfully!');
+      nameController.text = '';
+      treatingController.text = '';
     } else {
       Get.defaultDialog(
           content: Text(
