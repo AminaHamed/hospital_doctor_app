@@ -44,7 +44,6 @@ class AddMedicalAnalysisController extends GetxController {
   }
 
   Future<void> sendToServer(String id) async {
-    //TODo handel image file
     String url =
         'http://momahgoub172-001-site1.atempurl.com/api/MedicalAnalysis/AddMedicalAnalysis';
     String patientId = id;
@@ -56,20 +55,22 @@ class AddMedicalAnalysisController extends GetxController {
 
     request.fields['patientId'] = patientId;
     request.fields['notes'] = notes;
-    if (_pickedImage != null) {
+    if (pickedImage != null) {
       var imageStream = http.ByteStream(_pickedImage!.openRead());
       var length = await _pickedImage!.length();
-      var multipartFile = http.MultipartFile('imageFile', imageStream, length);
+      var multipartFile = http.MultipartFile('imageFile', imageStream, length,
+          filename: _pickedImage!.path.split("/").last);
 
       request.files.add(multipartFile);
     }
-
     var response = await request.send();
 
     if (response.statusCode == 200) {
       print('data sent successfully.');
     } else {
       print('Failed to send data. Status code: ${response.statusCode}');
+      String responseBody = await response.stream.bytesToString();
+      print('Response body: $responseBody');
     }
   }
 
