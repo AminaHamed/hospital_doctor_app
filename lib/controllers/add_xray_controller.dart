@@ -42,9 +42,7 @@ class AddXRayController extends GetxController {
       update();
     }
   }
-
   Future<void> sendToServer(String id) async {
-    //TODo handel image file
     String url = 'http://momahgoub172-001-site1.atempurl.com/api/XRay/AddXRay';
     String patientId = id;
     String notes = notesController.text;
@@ -55,23 +53,23 @@ class AddXRayController extends GetxController {
 
     request.fields['patientId'] = patientId;
     request.fields['notes'] = notes;
-    if (_pickedImage != null) {
-      var imageStream =
-          http.ByteStream(Stream.castFrom(File(_pickedImage!.path).openRead()));
-      var length = await File(_pickedImage!.path).length();
-
+    if (pickedImage != null) {
+      var imageStream = http.ByteStream(_pickedImage!.openRead());
+      var length = await _pickedImage!.length();
       var multipartFile = http.MultipartFile('imageFile', imageStream, length,
           filename: _pickedImage!.path.split("/").last);
 
       request.files.add(multipartFile);
     }
-
     var response = await request.send();
 
     if (response.statusCode == 200) {
       print('data sent successfully.');
+      notesController.text = '';
     } else {
       print('Failed to send data. Status code: ${response.statusCode}');
+      String responseBody = await response.stream.bytesToString();
+      print('Response body: $responseBody');
     }
   }
 
