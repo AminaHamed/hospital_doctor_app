@@ -39,7 +39,11 @@ class PreviousVisitItem extends StatelessWidget {
                   const SizedBox(
                     width: 8,
                   ),
-                  CustomOutlineBorderText(text: visitsRes?.diagnosis ?? '')
+                  CustomOutlineBorderText(
+                    text: visitsRes?.pharma?.isNotEmpty == true
+                        ? visitsRes?.pharma![0].diagnosis ?? 'No diagnosis'
+                        : 'No diagnosis',
+                  )
                 ],
               ),
               const SizedBox(
@@ -51,7 +55,12 @@ class PreviousVisitItem extends StatelessWidget {
                   const SizedBox(
                     width: 8,
                   ),
-                  CustomOutlineBorderText(text: visitsRes?.pharmaceutical ?? '')
+                  CustomOutlineBorderText(
+                    text: visitsRes?.pharma?.isNotEmpty == true
+                        ? visitsRes?.pharma![0].pharmaceutical ??
+                            'No Pharmaceutical'
+                        : 'No Pharmaceutical',
+                  )
                 ],
               ),
             ],
