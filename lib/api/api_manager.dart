@@ -35,13 +35,24 @@ class ApiManager {
         'http://momahgoub172-001-site1.atempurl.com/api/PreviousVisits/AddVisit?PatientId=$id';
     try {
       // Map<String, dynamic> map = addVisitRes.toJson();
-      List<Map<String, dynamic>> data = [
-        {
-          "visitDate": addVisitRes.visitDate.toString(),
-          "diagnosis": addVisitRes.pharmaceutical.toString(),
-          "pharmaceutical": addVisitRes.diagnosis.toString()
-        }
-      ];
+
+      Map<String, dynamic> data = {
+        "visitDate": addVisitRes.visitDate.toString(),
+        "pharma": [
+          {
+            "diagnosis": addVisitRes.pharmaceutical.toString(),
+            "pharmaceutical": addVisitRes.diagnosis.toString()
+          }
+        ]
+      };
+
+      // List<Map<String, dynamic>> data = [
+      //   {
+      //     "visitDate": addVisitRes.visitDate.toString(),
+      //     "diagnosis": addVisitRes.pharmaceutical.toString(),
+      //     "pharmaceutical": addVisitRes.diagnosis.toString()
+      //   }
+      // ];
       // String jsonData = json.encode(map);
       String jsonData = json.encode(data);
       Map<String, String> headers = {
