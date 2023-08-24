@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
+import '../core/constants/app_color.dart';
+
 class AddMedicalAnalysisController extends GetxController {
   File? _pickedImage;
   DateTime selectedData = DateTime.now();
@@ -44,6 +46,15 @@ class AddMedicalAnalysisController extends GetxController {
   }
 
   Future<void> sendToServer(String id) async {
+    Get.defaultDialog(
+      title: 'Wait',
+      content: const Center(
+          child: CircularProgressIndicator(
+        color: AppColor.primaryColor,
+      )),
+      barrierDismissible: false,
+    );
+
     String url =
         'http://momahgoub172-001-site1.atempurl.com/api/MedicalAnalysis/AddMedicalAnalysis';
     String patientId = id;
@@ -63,11 +74,39 @@ class AddMedicalAnalysisController extends GetxController {
 
       request.files.add(multipartFile);
     }
+
     var response = await request.send();
+    Get.back(canPop: false);
 
     if (response.statusCode == 200) {
+      Get.defaultDialog(
+          content: const Text('Data Added successfully!',
+              style: TextStyle(
+                  fontSize: 18,
+                  color: AppColor.grey,
+                  fontWeight: FontWeight.bold)),
+          buttonColor: AppColor.primaryColor,
+          textConfirm: 'OK',
+          onConfirm: () {
+            Get.back(canPop: false);
+          });
       print('data sent successfully.');
+      notesController.text = '';
+      _pickedImage = null;
+      update();
     } else {
+      Get.defaultDialog(
+          content: Text('Failed to send data. Error: ${response?.statusCode} ',
+              style: const TextStyle(
+                  fontSize: 18,
+                  color: AppColor.grey,
+                  fontWeight: FontWeight.bold)),
+          buttonColor: AppColor.primaryColor,
+          textConfirm: 'OK',
+          onConfirm: () {
+            Get.back(canPop: false);
+          });
+
       print('Failed to send data. Status code: ${response.statusCode}');
       String responseBody = await response.stream.bytesToString();
       print('Response body: $responseBody');

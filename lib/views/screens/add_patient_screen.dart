@@ -50,7 +50,6 @@ class AddPatientScreen extends StatelessWidget {
                     Expanded(
                         child: CustomTextFormField(
                       label: 'Name',
-                      keyboardType: TextInputType.number,
                       controller: controller.nameController,
                       validator: (val) => controller.validateName(val!),
                     ))
@@ -80,7 +79,6 @@ class AddPatientScreen extends StatelessWidget {
                     Expanded(
                         child: CustomTextFormField(
                       label: 'Gender',
-                      keyboardType: TextInputType.number,
                       controller: controller.genderController,
                       validator: (val) => controller.validateGender(val!),
                     ))
@@ -103,11 +101,11 @@ class AddPatientScreen extends StatelessWidget {
                 ),
                 CustomFormButton(
                     text: 'Submit',
-                    onPressed: () {
+                    onPressed: () async {
                       if (formKey.currentState?.validate() == false) {
                         return;
                       } else {
-                        controller.sendData();
+                        await controller.sendData();
                       }
                     })
               ],
