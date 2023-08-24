@@ -9,11 +9,10 @@ import '../widgets/custom_formButton.dart';
 
 class XRaysTab extends StatelessWidget {
   XRaysTab({Key? key}) : super(key: key);
-  final args = Get.arguments as Map<String, dynamic>;
+  final patientID = Get.arguments.toString();
 
   @override
   Widget build(BuildContext context) {
-    final String patientID = args['patientID'] ?? '';
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
       child: Column(

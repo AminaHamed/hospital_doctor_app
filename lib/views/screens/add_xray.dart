@@ -5,7 +5,6 @@ import 'package:hospital_app/views/widgets/custom_formButton.dart';
 import 'package:hospital_app/views/widgets/custom_text.dart';
 import 'package:hospital_app/views/widgets/custom_textFormField.dart';
 
-import '../../controllers/add_medicalAnalysis_controller.dart';
 import '../../controllers/add_xray_controller.dart';
 import '../../utils/date_widget.dart';
 import '../widgets/custom_image_btn.dart';
@@ -36,8 +35,7 @@ class AddXRayScreen extends StatelessWidget {
                     const SizedBox(
                       width: 8,
                     ),
-                    GetBuilder<AddMedicalAnalysisController>(
-                        builder: (controller) {
+                    GetBuilder<AddXRayController>(builder: (controller) {
                       return DateWidget(
                           selectedDate: controller.selectedData,
                           onTap: () {
@@ -68,7 +66,7 @@ class AddXRayScreen extends StatelessWidget {
                       await controller.pickImage();
                       print(controller.pickedImage);
                     }),
-                GetBuilder<AddMedicalAnalysisController>(builder: (controller) {
+                GetBuilder<AddXRayController>(builder: (controller) {
                   return Container(
                     margin: const EdgeInsets.symmetric(vertical: 25),
                     child: Row(

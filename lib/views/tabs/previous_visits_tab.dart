@@ -9,11 +9,10 @@ import '../widgets/previousVisit_item.dart';
 class PreviousVisitsTab extends StatelessWidget {
   PreviousVisitsTab({Key? key}) : super(key: key);
   PreviousVisitsController controller = Get.put(PreviousVisitsController());
+  final patientID = Get.arguments.toString();
 
   @override
   Widget build(BuildContext context) {
-    final args = Get.arguments as Map<String, dynamic>;
-    final String patientID = args['patientID'] ?? '';
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
       child: Column(

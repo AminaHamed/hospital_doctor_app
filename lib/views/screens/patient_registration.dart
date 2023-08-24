@@ -41,8 +41,6 @@ class PatientRegistrationScreen extends StatelessWidget {
                     if (formKey.currentState?.validate() == false) {
                       controller.numberController.text = '';
                       return;
-                      // print(controller.numbers);
-                      //print(controller.numberController.text);
                     } else {
                       await controller
                           .makeAPICall(controller.numberController.text);

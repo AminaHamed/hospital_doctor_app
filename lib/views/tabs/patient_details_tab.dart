@@ -9,17 +9,10 @@ import '../widgets/custom_outlineBorder_text.dart';
 class PatientDetailsTab extends StatelessWidget {
   PatientDetailsTab({Key? key}) : super(key: key);
 
-  // final String iD = '987654321';
-  // Get.arguments;
+  final patientID = Get.arguments.toString();
 
   @override
   Widget build(BuildContext context) {
-    final args = Get.arguments as Map<String, dynamic>;
-    final apiData = args['apiData'] ?? '';
-    final String patientID = args['patientID'] ?? '';
-
-    // final PatientDataTabController controller =
-    //     Get.put(PatientDataTabController(iD));
     return Container(
         height: double.infinity,
         width: double.infinity,

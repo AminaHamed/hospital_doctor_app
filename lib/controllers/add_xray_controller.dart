@@ -56,9 +56,12 @@ class AddXRayController extends GetxController {
     request.fields['patientId'] = patientId;
     request.fields['notes'] = notes;
     if (_pickedImage != null) {
-      var imageStream = http.ByteStream(_pickedImage!.openRead());
-      var length = await _pickedImage!.length();
-      var multipartFile = http.MultipartFile('imageFile', imageStream, length);
+      var imageStream =
+          http.ByteStream(Stream.castFrom(File(_pickedImage!.path).openRead()));
+      var length = await File(_pickedImage!.path).length();
+
+      var multipartFile = http.MultipartFile('imageFile', imageStream, length,
+          filename: _pickedImage!.path.split("/").last);
 
       request.files.add(multipartFile);
     }

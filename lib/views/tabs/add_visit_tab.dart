@@ -12,11 +12,10 @@ class AddVisitTab extends StatelessWidget {
 
   AddVisitController controller = Get.put(AddVisitController());
   var formKey = GlobalKey<FormState>();
+  final patientID = Get.arguments.toString();
 
   @override
   Widget build(BuildContext context) {
-    final args = Get.arguments as Map<String, dynamic>;
-    final String patientID = args['patientID'] ?? '';
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
       child: SingleChildScrollView(

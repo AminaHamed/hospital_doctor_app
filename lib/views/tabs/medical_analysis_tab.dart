@@ -11,11 +11,10 @@ import '../widgets/medical_analysis_item.dart';
 class MedicalAnalysisTab extends StatelessWidget {
   MedicalAnalysisTab({Key? key}) : super(key: key);
   final controller = Get.put(MedicalAnalysisController());
-  final args = Get.arguments as Map<String, dynamic>;
+  final patientID = Get.arguments.toString();
 
   @override
   Widget build(BuildContext context) {
-    final String patientID = args['patientID'] ?? '';
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 10),
       child: Column(

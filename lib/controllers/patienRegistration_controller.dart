@@ -33,8 +33,7 @@ class PatientRegistrationController extends GetxController {
     Get.back(canPop: false);
     if (myResponse == 'Successful ID') {
       apiData = await ApiManager.getAllPatientInfo(patientID);
-      Get.toNamed(AppRoutes.patientData,
-          arguments: {'patientID': patientID, 'apiData': apiData});
+      Get.toNamed(AppRoutes.patientData, arguments: patientID);
     } else {
       Get.defaultDialog(
           content: Text(myResponse,
