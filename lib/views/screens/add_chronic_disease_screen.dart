@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:hospital_app/views/widgets/custom_appBar.dart';
 
 import '../../controllers/addChronicDisease_controller.dart';
-import '../../core/constants/app_routes.dart';
 import '../widgets/custom_formButton.dart';
 import '../widgets/custom_text.dart';
 import '../widgets/custom_textFormField.dart';
@@ -52,7 +51,7 @@ class AddChronicDiseaseScreen extends StatelessWidget {
                         return;
                       } else {
                         await controller.sendData(patientID);
-                        Get.toNamed(AppRoutes.patientData);
+                        // Get.toNamed(AppRoutes.patientData);
                       }
                     })
               ],

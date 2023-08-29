@@ -57,7 +57,8 @@ class AddChronicDiseaseController extends GetxController {
           buttonColor: AppColor.primaryColor,
           textConfirm: 'OK',
           onConfirm: () {
-            Get.back(canPop: false);
+            Get.back();
+            Get.back();
           });
       print('Data sent successfully!');
       nameController.text = '';

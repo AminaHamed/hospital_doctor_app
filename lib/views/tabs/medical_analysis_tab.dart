@@ -1,17 +1,62 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hospital_app/core/constants/app_routes.dart';
 import 'package:hospital_app/models/PatientInformation.dart';
 import 'package:hospital_app/views/widgets/custom_formButton.dart';
+import 'package:http/http.dart' as http;
 
-import '../../api/api_manager.dart';
 import '../../controllers/patient_medicalAnalysis_controller.dart';
 import '../widgets/medical_analysis_item.dart';
 
-class MedicalAnalysisTab extends StatelessWidget {
+class MedicalAnalysisTab extends StatefulWidget {
   MedicalAnalysisTab({Key? key}) : super(key: key);
+
+  @override
+  State<MedicalAnalysisTab> createState() => _MedicalAnalysisTabState();
+}
+
+class _MedicalAnalysisTabState extends State<MedicalAnalysisTab> {
   final controller = Get.put(MedicalAnalysisController());
+
   final patientID = Get.arguments.toString();
+  late StreamController<List<MedicalAnalysis>> _medicalStreamController;
+
+  @override
+  void initState() {
+    super.initState();
+    _medicalStreamController = StreamController<List<MedicalAnalysis>>();
+    fetchXRayData(patientID);
+  }
+
+  Future<void> fetchXRayData(String id) async {
+    while (true) {
+      Future.delayed(const Duration(milliseconds: 500));
+      final response = await http.get(Uri.parse(
+          'http://momahgoub172-001-site1.atempurl.com/api/Patient/GetPatientInfo?nid=$id'));
+
+      if (response.statusCode == 200) {
+        final jsonData = json.decode(response.body);
+        final medicalList = (jsonData['medicalAnalysis'] as List)
+            .map((medicalData) => MedicalAnalysis(
+                  analysisId: medicalData['analysisId'],
+                  patientId: medicalData['patientId'],
+                  analysisImage: medicalData['analysisImage'],
+                  notes: medicalData['notes'],
+                  analysisDate: medicalData['analysisDate'],
+                ))
+            .toList();
+
+        print('Fetched ${medicalList.length}  records');
+        _medicalStreamController.add(medicalList);
+
+        // Debug: Check if the stream controller has listeners
+        print('Stream has listeners: ${_medicalStreamController.hasListener}');
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,18 +64,16 @@ class MedicalAnalysisTab extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 10),
       child: Column(
         children: [
-          StreamBuilder<PatientInformation>(
-            stream: ApiManager.getPatientInfoStream(patientID),
-            builder: (BuildContext context,
-                AsyncSnapshot<PatientInformation> snapshot) {
+          StreamBuilder<List<MedicalAnalysis>>(
+            stream: _medicalStreamController.stream,
+            builder: (BuildContext context, snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
                 return Center(
                     child: Text('Error loading: ${snapshot.error.toString()}'));
-              } else if (snapshot.hasData &&
-                  snapshot.data!.medicalAnalysis!.isNotEmpty) {
-                final data = snapshot.data?.medicalAnalysis;
+              } else if (snapshot.hasData) {
+                final data = snapshot.data;
                 return Expanded(
                   child: ListView.builder(
                     itemCount: data?.length ?? 0,
@@ -52,36 +95,12 @@ class MedicalAnalysisTab extends StatelessWidget {
               })
         ],
       ),
-      // Column(
-      //   children: [
-      //     Expanded(
-      //       child: Obx((){
-      //         if (controller.medicalAnalysisList.isEmpty) {
-      //           return const Center(child: CircularProgressIndicator());
-      //         }else{
-      //           return ListView.builder(
-      //               itemCount:1,
-      //               // controller.medicalAnalysisList.length,
-      //           itemBuilder: (context, index) {
-      //             final analysis = controller.medicalAnalysisList[index];
-      //             return MedicalAnalysisItem(
-      //               date: analysis.analysisDate??'',
-      //               notes: analysis.notes??'',
-      //               url: analysis.analysisImage??'',
-      //             );
-      //           }
-      //
-      //           );
-      //         }
-      //       }),
-      //     ),
-      //     CustomFormButton(text: 'Add New ', onPressed: (){
-      //     Get.toNamed(AppRoutes.addAnalysis);
-      //
-      //     })
-      //   ],
-      // ),
-      // )
     );
+  }
+
+  @override
+  void dispose() {
+    _medicalStreamController.close();
+    super.dispose();
   }
 }

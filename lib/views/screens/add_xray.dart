@@ -6,7 +6,6 @@ import 'package:hospital_app/views/widgets/custom_text.dart';
 import 'package:hospital_app/views/widgets/custom_textFormField.dart';
 
 import '../../controllers/add_xray_controller.dart';
-import '../../core/constants/app_routes.dart';
 import '../../utils/date_widget.dart';
 import '../widgets/custom_image_btn.dart';
 import '../widgets/custom_outlineBorder_text.dart';
@@ -87,7 +86,7 @@ class AddXRayScreen extends StatelessWidget {
                         return;
                       }
                       await controller.sendToServer(patientID);
-                      Get.toNamed(AppRoutes.patientData);
+                      // Get.toNamed(AppRoutes.patientData);
                     })
               ],
             ),

@@ -88,7 +88,8 @@ class AddMedicalAnalysisController extends GetxController {
           buttonColor: AppColor.primaryColor,
           textConfirm: 'OK',
           onConfirm: () {
-            Get.back(canPop: false);
+            Get.back();
+            Get.back();
           });
       print('data sent successfully.');
       notesController.text = '';
@@ -96,7 +97,7 @@ class AddMedicalAnalysisController extends GetxController {
       update();
     } else {
       Get.defaultDialog(
-          content: Text('Failed to send data. Error: ${response?.statusCode} ',
+          content: Text('Failed to send data. Error: ${response.statusCode} ',
               style: const TextStyle(
                   fontSize: 18,
                   color: AppColor.grey,

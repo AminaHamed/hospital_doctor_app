@@ -68,12 +68,15 @@ class AddXRayController extends GetxController {
       var imageStream = http.ByteStream(_pickedImage!.openRead());
       var length = await _pickedImage!.length();
       var multipartFile = http.MultipartFile('imageFile', imageStream, length,
-          filename: _pickedImage!.path.split("/").last);
+          filename: _pickedImage!
+              .path
+              .split("/")
+              .last);
 
       request.files.add(multipartFile);
     }
     var response = await request.send();
-    // Get.back(canPop: false);
+    Get.back(canPop: false);
 
     if (response.statusCode == 200) {
       Get.defaultDialog(
@@ -85,7 +88,8 @@ class AddXRayController extends GetxController {
           buttonColor: AppColor.primaryColor,
           textConfirm: 'OK',
           onConfirm: () {
-            Get.back(canPop: false);
+            Get.back();
+            Get.back();
           });
       print('data sent successfully.');
       _pickedImage = null;
