@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:hospital_app/models/AddChronicRes.dart';
 import 'package:hospital_app/models/AddVisitRes.dart';
 import 'package:hospital_app/models/MedicalAnalysisResponse.dart';
@@ -7,10 +9,68 @@ import 'package:hospital_app/models/PatientResponse.dart';
 import 'package:hospital_app/models/VisitsRes.dart';
 import 'package:http/http.dart' as http;
 
+import '../core/constants/app_color.dart';
 import '../models/PatientInformation.dart';
 
 class ApiManager {
   static const String baseUrl = "momahgoub172-001-site1.atempurl.com";
+
+  static Future<void> deleteChronic(String id) async {
+    print(id);
+    Get.defaultDialog(
+      title: 'Wait',
+      content: const Center(
+          child: CircularProgressIndicator(
+        color: AppColor.primaryColor,
+      )),
+      barrierDismissible: false,
+    );
+
+    String apiUrl =
+        'http://momahgoub172-001-site1.atempurl.com/api/ChronicDisease/DeleteChronicDisease?diseaseId=$id';
+    http.Response response = await http.delete(Uri.parse(apiUrl));
+    Get.back(canPop: false);
+    if (response.statusCode == 200) {
+      Get.defaultDialog(
+          content: const Text('Data Deleted successfully!',
+              style: TextStyle(
+                  fontSize: 18,
+                  color: AppColor.grey,
+                  fontWeight: FontWeight.bold)),
+          buttonColor: AppColor.primaryColor,
+          textConfirm: 'OK',
+          onConfirm: () {
+            Get.back(canPop: false);
+          });
+      print('Data Deleted successfully!');
+    } else if (response.statusCode == 404) {
+      Get.defaultDialog(
+          content: const Text('Chronic Disease not found!',
+              style: TextStyle(
+                  fontSize: 18,
+                  color: AppColor.grey,
+                  fontWeight: FontWeight.bold)),
+          buttonColor: AppColor.primaryColor,
+          textConfirm: 'OK',
+          onConfirm: () {
+            Get.back(canPop: false);
+          });
+      print('Chronic Disease not found!');
+    } else {
+      Get.defaultDialog(
+          content: Text('${response.statusCode} ${response.body}',
+              style: const TextStyle(
+                  fontSize: 18,
+                  color: AppColor.grey,
+                  fontWeight: FontWeight.bold)),
+          buttonColor: AppColor.primaryColor,
+          textConfirm: 'OK',
+          onConfirm: () {
+            Get.back(canPop: false);
+          });
+      print('${response.statusCode} ${response.body}');
+    }
+  }
 
   static Future<http.Response?> addChronic(AddChronicRes addChronicRes) async {
     String apiUrl =
