@@ -6,7 +6,6 @@ import 'package:hospital_app/views/widgets/custom_text.dart';
 import 'package:hospital_app/views/widgets/custom_textFormField.dart';
 
 import '../../controllers/add_xray_controller.dart';
-import '../../utils/date_widget.dart';
 import '../widgets/custom_image_btn.dart';
 import '../widgets/custom_outlineBorder_text.dart';
 
@@ -29,21 +28,21 @@ class AddXRayScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Row(
-                  children: [
-                    CustomText(text: 'Date'),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    GetBuilder<AddXRayController>(builder: (controller) {
-                      return DateWidget(
-                          selectedDate: controller.selectedData,
-                          onTap: () {
-                            controller.showMyDatePicker(context);
-                          });
-                    })
-                  ],
-                ),
+                // Row(
+                //   children: [
+                //     CustomText(text: 'Date'),
+                //     const SizedBox(
+                //       width: 8,
+                //     ),
+                //     GetBuilder<AddXRayController>(builder: (controller) {
+                //       return DateWidget(
+                //           selectedDate: controller.selectedData,
+                //           onTap: () {
+                //             controller.showMyDatePicker(context);
+                //           });
+                //     })
+                //   ],
+                // ),
                 Row(
                   children: [
                     CustomText(text: 'Notes'),
@@ -54,7 +53,7 @@ class AddXRayScreen extends StatelessWidget {
                         child: CustomTextFormField(
                       label: 'notes',
                       keyboardType: TextInputType.multiline,
-                      maxLines: 2,
+                      maxLines: 4,
                       controller: controller.notesController,
                       validator: (value) => controller.validateNotes(value!),
                     ))

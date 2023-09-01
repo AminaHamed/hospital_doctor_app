@@ -4,7 +4,6 @@ import 'package:hospital_app/views/widgets/custom_formButton.dart';
 import 'package:hospital_app/views/widgets/custom_textFormField.dart';
 
 import '../../controllers/add_visit_controller.dart';
-import '../../utils/date_widget.dart';
 import '../widgets/custom_text.dart';
 
 class AddVisitTab extends StatelessWidget {
@@ -23,26 +22,26 @@ class AddVisitTab extends StatelessWidget {
           key: formKey,
           child: Column(
             children: [
-              CustomText(text: 'Date'),
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 15),
-                child: Row(
-                  children: [
-                    GetBuilder<AddVisitController>(builder: (controller) {
-                      return DateWidget(
-                          selectedDate: controller.selectedData,
-                          onTap: () {
-                            controller.showMyDatePicker(context);
-                          });
-                    }),
-                  ],
-                ),
-              ),
+              // CustomText(text: 'Date'),
+              // Container(
+              //   margin: const EdgeInsets.symmetric(vertical: 15),
+              //   child: Row(
+              //     children: [
+              //       GetBuilder<AddVisitController>(builder: (controller) {
+              //         return DateWidget(
+              //             selectedDate: controller.selectedData,
+              //             onTap: () {
+              //               controller.showMyDatePicker(context);
+              //             });
+              //       }),
+              //     ],
+              //   ),
+              // ),
               CustomText(text: 'Diagnosis'),
               CustomTextFormField(
                 label: 'description',
                 keyboardType: TextInputType.multiline,
-                maxLines: 2,
+                maxLines: 3,
                 controller: controller.diagnosisController,
                 validator: (value) => controller.validateDiagnosis(value!),
               ),
@@ -50,7 +49,7 @@ class AddVisitTab extends StatelessWidget {
               CustomTextFormField(
                 label: 'description',
                 keyboardType: TextInputType.multiline,
-                maxLines: 3,
+                maxLines: 4,
                 controller: controller.pharmaceuticalController,
                 validator: (value) => controller.validatePharmaceutical(value!),
               ),

@@ -6,7 +6,6 @@ import 'package:hospital_app/views/widgets/custom_text.dart';
 import 'package:hospital_app/views/widgets/custom_textFormField.dart';
 
 import '../../controllers/add_medicalAnalysis_controller.dart';
-import '../../utils/date_widget.dart';
 import '../widgets/custom_image_btn.dart';
 import '../widgets/custom_outlineBorder_text.dart';
 
@@ -23,29 +22,29 @@ class AddMedicalAnalysisScreen extends StatelessWidget {
     return Scaffold(
       appBar: const CustomAppBar(text: 'Add New Medical Analysis'),
       body: Container(
+        height: double.infinity,
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
         child: SingleChildScrollView(
           child: Form(
             key: formKey,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Row(
-                  children: [
-                    CustomText(text: 'Date'),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    GetBuilder<AddMedicalAnalysisController>(
-                        builder: (controller) {
-                      return DateWidget(
-                          selectedDate: controller.selectedData,
-                          onTap: () {
-                            controller.showMyDatePicker(context);
-                          });
-                    })
-                  ],
-                ),
+                // Row(
+                //   children: [
+                //     CustomText(text: 'Date'),
+                //     const SizedBox(
+                //       width: 8,
+                //     ),
+                //     GetBuilder<AddMedicalAnalysisController>(
+                //         builder: (controller) {
+                //       return DateWidget(
+                //           selectedDate: controller.selectedData,
+                //           onTap: () {
+                //             controller.showMyDatePicker(context);
+                //           });
+                //     })
+                //   ],
+                // ),
                 Row(
                   children: [
                     CustomText(text: 'Notes'),
@@ -56,7 +55,7 @@ class AddMedicalAnalysisScreen extends StatelessWidget {
                         child: CustomTextFormField(
                       label: 'notes',
                       keyboardType: TextInputType.multiline,
-                      maxLines: 2,
+                      maxLines: 4,
                       controller: controller.notesController,
                       validator: (value) => controller.validateNotes(value!),
                     ))
