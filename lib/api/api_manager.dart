@@ -70,7 +70,6 @@ class ApiManager {
   }
 
   static Future<void> deleteChronic(String id) async {
-    print(id);
     showWaitDialog();
     String apiUrl =
         'http://momahgoub172-001-site1.atempurl.com/api/ChronicDisease/DeleteChronicDisease?diseaseId=$id';
@@ -80,10 +79,18 @@ class ApiManager {
   }
 
   static Future<void> deleteXray(String id) async {
-    print(id);
     showWaitDialog();
     String apiUrl =
         'http://momahgoub172-001-site1.atempurl.com/api/XRay/DeleteXRay?xrayId=$id';
+    http.Response response = await http.delete(Uri.parse(apiUrl));
+    Get.back(canPop: false);
+    deleteFunction(response);
+  }
+
+  static Future<void> deleteMedicalAnalysis(String id) async {
+    showWaitDialog();
+    String apiUrl =
+        'http://momahgoub172-001-site1.atempurl.com/api/MedicalAnalysis/DeleteMedicalAnalysis?medicalId=$id';
     http.Response response = await http.delete(Uri.parse(apiUrl));
     Get.back(canPop: false);
     deleteFunction(response);
