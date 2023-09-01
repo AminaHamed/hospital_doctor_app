@@ -95,6 +95,19 @@ class ApiManager {
     return await http.post(Uri.parse(apiUrl), headers: headers, body: jsonData);
   }
 
+  static Future<http.Response> login(
+      {required String email, required String password}) async {
+    showWaitDialog();
+    String apiUrl = 'http://momahgoub172-001-site1.atempurl.com/api/Auth/Login';
+    Map<String, dynamic> data = {"email": email, "password": password};
+    String jsonData = json.encode(data);
+    Map<String, String> headers = {
+      'accept': '*/*',
+      'Content-Type': 'application/json',
+    };
+    return await http.post(Uri.parse(apiUrl), headers: headers, body: jsonData);
+  }
+
   static Future<void> deleteChronic(String id) async {
     showWaitDialog();
     String apiUrl =

@@ -56,11 +56,13 @@ class RegisterScreen extends StatelessWidget {
                     ),
                     CustomTextFormField(
                       label: 'Phone',
+                      keyboardType: TextInputType.phone,
                       controller: controller.phoneController,
                       validator: (value) => controller.validatePhone(value!),
                     ),
                     CustomTextFormField(
                       label: 'e-mail',
+                      keyboardType: TextInputType.emailAddress,
                       controller: controller.emailController,
                       validator: (value) => controller.validateEmail(value!),
                     ),
