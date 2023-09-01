@@ -8,7 +8,6 @@ import 'package:hospital_app/models/PatientInformation.dart';
 import 'package:hospital_app/views/widgets/custom_formButton.dart';
 import 'package:http/http.dart' as http;
 
-import '../../controllers/patient_medicalAnalysis_controller.dart';
 import '../widgets/medical_analysis_item.dart';
 
 class MedicalAnalysisTab extends StatefulWidget {
@@ -19,7 +18,6 @@ class MedicalAnalysisTab extends StatefulWidget {
 }
 
 class _MedicalAnalysisTabState extends State<MedicalAnalysisTab> {
-  final controller = Get.put(MedicalAnalysisController());
 
   final patientID = Get.arguments.toString();
   late StreamController<List<MedicalAnalysis>> _medicalStreamController;

@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hospital_app/models/AddChronicRes.dart';
 import 'package:hospital_app/models/AddVisitRes.dart';
-import 'package:hospital_app/models/MedicalAnalysisResponse.dart';
-import 'package:hospital_app/models/PatientResponse.dart';
 import 'package:hospital_app/models/VisitsRes.dart';
 import 'package:http/http.dart' as http;
 
@@ -191,7 +189,6 @@ class ApiManager {
     if (response.statusCode == 200) {
       return 'Successful ID';
     } else if (response.statusCode == 204) {
-      //no user with this id
       return 'no user with this id';
     } else if (response.statusCode == 400) {
       return 'The nid field is required';
@@ -200,28 +197,6 @@ class ApiManager {
     }
   }
 
-  static Future<PatientResponse> getPatientData(String ID) async {
-    final response = await http.get(Uri.parse(
-        'http://momahgoub172-001-site1.atempurl.com/api/Patient/GetPatientByNID?nid=$ID'));
-    // if (response.statusCode == 200) {
-
-    return PatientResponse.fromJson(jsonDecode(response.body));
-    // } else {
-    //   return throw Exception('Failed to load Patient try again later');
-    // }
-  }
-
-  static Future<MedicalAnalysisResponse> getMedicalAnalysisData(
-      String ID) async {
-    final response = await http.get(Uri.parse(
-        "http://momahgoub172-001-site1.atempurl.com/api/MedicalAnalysis/GetMedicalAnalysesByPatientNID?nid=$ID"));
-
-    if (response.statusCode == 200) {
-      return MedicalAnalysisResponse.fromJson(jsonDecode(response.body));
-    } else {
-      throw Exception('Failed to load data');
-    }
-  }
 
   static sendMedicalAnalysis(MedicalAnalysis object) async {
     Map<String, dynamic> map = object.toJson();

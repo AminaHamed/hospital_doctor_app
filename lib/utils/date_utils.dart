@@ -10,7 +10,4 @@ class MyDateUtils {
     return DateFormat('yyyy-MM-ddTHH:mm:ss').format(dateTime);
   }
 
-  static DateTime extractDateOnly(DateTime dateTime) {
-    return DateTime(dateTime.year, dateTime.month, dateTime.day);
-  }
 }

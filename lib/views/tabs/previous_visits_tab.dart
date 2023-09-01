@@ -3,12 +3,10 @@ import 'package:get/get.dart';
 import 'package:hospital_app/models/VisitsRes.dart';
 
 import '../../api/api_manager.dart';
-import '../../controllers/previousVisits_controller.dart';
 import '../widgets/previousVisit_item.dart';
 
 class PreviousVisitsTab extends StatelessWidget {
   PreviousVisitsTab({Key? key}) : super(key: key);
-  PreviousVisitsController controller = Get.put(PreviousVisitsController());
   final patientID = Get.arguments.toString();
 
   @override

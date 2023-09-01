@@ -6,7 +6,7 @@ class AppTheme {
       fontFamily: 'PlayfairDisplay',
       textTheme: const TextTheme(
         titleLarge: TextStyle(
-            fontSize: 40,
+            fontSize: 35,
             fontWeight: FontWeight.bold,
             color: AppColor.primaryColor),
         titleMedium: TextStyle(
