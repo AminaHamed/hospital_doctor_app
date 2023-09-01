@@ -15,21 +15,7 @@ import '../models/PatientInformation.dart';
 class ApiManager {
   static const String baseUrl = "momahgoub172-001-site1.atempurl.com";
 
-  static Future<void> deleteChronic(String id) async {
-    print(id);
-    Get.defaultDialog(
-      title: 'Wait',
-      content: const Center(
-          child: CircularProgressIndicator(
-        color: AppColor.primaryColor,
-      )),
-      barrierDismissible: false,
-    );
-
-    String apiUrl =
-        'http://momahgoub172-001-site1.atempurl.com/api/ChronicDisease/DeleteChronicDisease?diseaseId=$id';
-    http.Response response = await http.delete(Uri.parse(apiUrl));
-    Get.back(canPop: false);
+  static deleteFunction(http.Response response) {
     if (response.statusCode == 200) {
       Get.defaultDialog(
           content: const Text('Data Deleted successfully!',
@@ -45,7 +31,7 @@ class ApiManager {
       print('Data Deleted successfully!');
     } else if (response.statusCode == 404) {
       Get.defaultDialog(
-          content: const Text('Chronic Disease not found!',
+          content: const Text('Data not found!',
               style: TextStyle(
                   fontSize: 18,
                   color: AppColor.grey,
@@ -55,7 +41,7 @@ class ApiManager {
           onConfirm: () {
             Get.back(canPop: false);
           });
-      print('Chronic Disease not found!');
+      print('Data not found!');
     } else {
       Get.defaultDialog(
           content: Text('${response.statusCode} ${response.body}',
@@ -70,6 +56,37 @@ class ApiManager {
           });
       print('${response.statusCode} ${response.body}');
     }
+  }
+
+  static showWaitDialog() {
+    Get.defaultDialog(
+      title: 'Wait',
+      content: const Center(
+          child: CircularProgressIndicator(
+        color: AppColor.primaryColor,
+      )),
+      barrierDismissible: false,
+    );
+  }
+
+  static Future<void> deleteChronic(String id) async {
+    print(id);
+    showWaitDialog();
+    String apiUrl =
+        'http://momahgoub172-001-site1.atempurl.com/api/ChronicDisease/DeleteChronicDisease?diseaseId=$id';
+    http.Response response = await http.delete(Uri.parse(apiUrl));
+    Get.back(canPop: false);
+    deleteFunction(response);
+  }
+
+  static Future<void> deleteXray(String id) async {
+    print(id);
+    showWaitDialog();
+    String apiUrl =
+        'http://momahgoub172-001-site1.atempurl.com/api/XRay/DeleteXRay?xrayId=$id';
+    http.Response response = await http.delete(Uri.parse(apiUrl));
+    Get.back(canPop: false);
+    deleteFunction(response);
   }
 
   static Future<http.Response?> addChronic(AddChronicRes addChronicRes) async {
