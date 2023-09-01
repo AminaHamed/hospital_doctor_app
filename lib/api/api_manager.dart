@@ -67,6 +67,34 @@ class ApiManager {
     );
   }
 
+  static Future<http.Response> register(
+      {required String fullName,
+      required String userName,
+      required String phone,
+      required String email,
+      required String password,
+      required String specialization}) async {
+    showWaitDialog();
+    String apiUrl =
+        'http://momahgoub172-001-site1.atempurl.com/api/Auth/DoctorRegister';
+    Map<String, dynamic> data = {
+      "fullName": fullName,
+      "phoneNumber": phone,
+      "userName": userName,
+      "email": email,
+      "password": password,
+      "specialization": specialization,
+      "description": "string",
+      "imageUrl": "string"
+    };
+    String jsonData = json.encode(data);
+    Map<String, String> headers = {
+      'accept': '*/*',
+      'Content-Type': 'application/json',
+    };
+    return await http.post(Uri.parse(apiUrl), headers: headers, body: jsonData);
+  }
+
   static Future<void> deleteChronic(String id) async {
     showWaitDialog();
     String apiUrl =
