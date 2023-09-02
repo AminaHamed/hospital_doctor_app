@@ -90,19 +90,6 @@ class RegisterController extends GetxController {
     return null;
   }
 
-  // File? _pickedImage;
-  // File? get pickedImage => _pickedImage;
-  //
-  // Future<void> pickImage() async {
-  //   final ImagePicker _picker = ImagePicker();
-  //   final XFile? pickedFile =
-  //   await _picker.pickImage(source: ImageSource.gallery);
-  //   if (pickedFile != null) {
-  //     _pickedImage = File(pickedFile.path);
-  //     update();
-  //   }
-  // }
-
   sendData() async {
     String name = fullNameController.text;
     String userName = userNameController.text;

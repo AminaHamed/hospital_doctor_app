@@ -5,6 +5,7 @@ import 'package:hospital_app/views/widgets/custom_formButton.dart';
 import 'package:hospital_app/views/widgets/custom_textFormField.dart';
 
 import '../../../controllers/auth/register_controller.dart';
+import '../../../core/constants/app_color.dart';
 import '../../widgets/switch_sign_page_widget.dart';
 
 class RegisterScreen extends StatelessWidget {
@@ -26,8 +27,11 @@ class RegisterScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Sign up',
-                        style: Theme.of(context).textTheme.titleLarge),
+                    Text('Welcome..',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium!
+                            .copyWith(color: AppColor.primaryColor)),
                     Text('Sign up to access our services.',
                         style: Theme.of(context)
                             .textTheme
@@ -83,23 +87,6 @@ class RegisterScreen extends StatelessWidget {
                       validator: (value) =>
                           controller.validateSpecialization(value!),
                     ),
-                    // CustomImageButton(
-                    //     text: 'Choose Image',
-                    //     onTap: () async {
-                    //       // await controller.pickImage();
-                    //     }),
-                    // GetBuilder<AddMedicalAnalysisController>(builder: (controller) {
-                    //   return Container(
-                    //     margin: const EdgeInsets.symmetric(vertical: 25),
-                    //     child: Row(
-                    //       children: [
-                    //         CustomOutlineBorderText(
-                    //           text: '${controller.pickedImage}' ?? '',
-                    //         ),
-                    //       ],
-                    //     ),
-                    //   );
-                    // }),
 
                     CustomFormButton(
                         text: 'Sign up',
