@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hospital_app/views/widgets/custom_appBar.dart';
 import 'package:hospital_app/views/widgets/custom_drawer.dart';
 
-import '../../models/tabBarList.dart';
-import '../widgets/tabBarItem.dart';
+import '../../models/tabBar_list.dart';
+import '../widgets/tab_bar_item.dart';
 
 class PatientDataScreen extends StatefulWidget {
   const PatientDataScreen({Key? key}) : super(key: key);

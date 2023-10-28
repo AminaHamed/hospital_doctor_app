@@ -5,7 +5,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 
 import '../../api/api_manager.dart';
-import '../../models/PatientInformation.dart';
+import '../../models/patient_information.dart';
 import 'custom_image_btn.dart';
 import 'custom_outlineBorder_text.dart';
 import 'custom_text.dart';

@@ -5,8 +5,8 @@ import 'package:hospital_app/core/constants/app_color.dart';
 import 'package:hospital_app/views/widgets/custom_appBar.dart';
 
 import '../../../core/constants/app_routes.dart';
-import '../../widgets/custom_formButton.dart';
-import '../../widgets/custom_textFormField.dart';
+import '../../widgets/custom_form_button.dart';
+import '../../widgets/custom_text_form_field.dart';
 import '../../widgets/switch_sign_page_widget.dart';
 
 class LoginScreen extends StatelessWidget {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hospital_app/models/VisitsRes.dart';
+import 'package:hospital_app/models/visitsRes.dart';
 
 import 'custom_outlineBorder_text.dart';
 import 'custom_text.dart';

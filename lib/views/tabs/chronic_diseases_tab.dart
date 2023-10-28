@@ -4,11 +4,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hospital_app/core/constants/app_routes.dart';
-import 'package:hospital_app/views/widgets/custom_formButton.dart';
+import 'package:hospital_app/views/widgets/custom_form_button.dart';
 import 'package:http/http.dart' as http;
 
-import '../../models/PatientInformation.dart';
-import '../widgets/chronicDisease_item.dart';
+import '../../models/patient_information.dart';
+import '../widgets/chronic_disease_item.dart';
 
 class ChronicDiseasesTab extends StatefulWidget {
   ChronicDiseasesTab({Key? key}) : super(key: key);

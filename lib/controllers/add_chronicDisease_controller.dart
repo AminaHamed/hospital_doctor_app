@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hospital_app/api/api_manager.dart';
-import 'package:hospital_app/models/AddChronicRes.dart';
+import 'package:hospital_app/models/add_chronicRes.dart';
 import 'package:http/http.dart' as http;
 
 import '../core/constants/app_color.dart';

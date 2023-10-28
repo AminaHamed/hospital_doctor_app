@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hospital_app/core/constants/app_routes.dart';
-import 'package:hospital_app/views/widgets/custom_formButton.dart';
-import 'package:hospital_app/views/widgets/custom_textFormField.dart';
+import 'package:hospital_app/views/widgets/custom_form_button.dart';
+import 'package:hospital_app/views/widgets/custom_text_form_field.dart';
 
 import '../../../controllers/auth/register_controller.dart';
 import '../../../core/constants/app_color.dart';

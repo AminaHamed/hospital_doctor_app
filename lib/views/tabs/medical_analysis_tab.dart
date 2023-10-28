@@ -4,8 +4,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hospital_app/core/constants/app_routes.dart';
-import 'package:hospital_app/models/PatientInformation.dart';
-import 'package:hospital_app/views/widgets/custom_formButton.dart';
+import 'package:hospital_app/models/patient_information.dart';
+import 'package:hospital_app/views/widgets/custom_form_button.dart';
 import 'package:http/http.dart' as http;
 
 import '../widgets/medical_analysis_item.dart';

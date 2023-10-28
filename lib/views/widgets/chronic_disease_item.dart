@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hospital_app/api/api_manager.dart';
-import 'package:hospital_app/models/PatientInformation.dart';
+import 'package:hospital_app/models/patient_information.dart';
 
 import 'custom_outlineBorder_text.dart';
 import 'custom_text.dart';

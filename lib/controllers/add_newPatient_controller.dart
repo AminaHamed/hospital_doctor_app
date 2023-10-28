@@ -2,11 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hospital_app/api/api_manager.dart';
 import 'package:hospital_app/core/constants/app_routes.dart';
 import 'package:http/http.dart' as http;
 
 import '../core/constants/app_color.dart';
-import '../models/PatientRes.dart';
+import '../models/patientRes.dart';
 
 class AddNewPatientController extends GetxController {
   final TextEditingController idController = TextEditingController();
@@ -78,14 +79,7 @@ class AddNewPatientController extends GetxController {
     Map<String, String> headers = {
       'Content-Type': 'application/json',
     };
-    Get.defaultDialog(
-      title: 'Wait',
-      content: const Center(
-          child: CircularProgressIndicator(
-        color: AppColor.primaryColor,
-      )),
-      barrierDismissible: false,
-    );
+    ApiManager.showWaitDialog();
     String apiUrl =
         'http://momahgoub172-001-site1.atempurl.com/api/Doctors/AddPatient';
     http.Response response =
@@ -104,28 +98,16 @@ class AddNewPatientController extends GetxController {
             Get.toNamed(AppRoutes.patientRegistration);
             // Get.back(canPop: false);
           });
-      print('Data sent successfully!');
     } else {
-      Get.defaultDialog(
-          content: Text(
-              'Failed to send data. Error: ${response.statusCode},${response.body} ',
-              style: const TextStyle(
-                  fontSize: 18,
-                  color: AppColor.grey,
-                  fontWeight: FontWeight.bold)),
-          buttonColor: AppColor.primaryColor,
-          textConfirm: 'OK',
-          onConfirm: () {
-            Get.back(canPop: false);
-          });
-      print('Failed to send data. Error: ${response.statusCode}');
-      print('Response Body: ${response.body}');
+      ApiManager.showMessageDialog(
+          msg:
+              'Failed to send data. Error: ${response.statusCode},${response.body} ');
     }
-    nameController.text = '';
-    idController.text = '';
-    phoneController.text = '';
-    ageController.text = '';
-    genderController.text = '';
+    nameController.clear();
+    idController.clear();
+    phoneController.clear();
+    ageController.clear();
+    genderController.clear();
   }
 
   @override

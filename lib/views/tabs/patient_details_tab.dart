@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:hospital_app/views/widgets/custom_text.dart';
 
 import '../../api/api_manager.dart';
-import '../../models/PatientInformation.dart';
+import '../../models/patient_information.dart';
 import '../widgets/custom_outlineBorder_text.dart';
 
 class PatientDetailsTab extends StatelessWidget {

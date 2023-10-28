@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hospital_app/models/VisitsRes.dart';
+import 'package:hospital_app/models/visitsRes.dart';
 
 import '../../api/api_manager.dart';
-import '../widgets/previousVisit_item.dart';
+import '../widgets/previous_visit_item.dart';
 
 class PreviousVisitsTab extends StatelessWidget {
   PreviousVisitsTab({Key? key}) : super(key: key);

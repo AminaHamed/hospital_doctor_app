@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hospital_app/views/widgets/custom_appBar.dart';
 
-import '../../controllers/addChronicDisease_controller.dart';
-import '../widgets/custom_formButton.dart';
+import '../../controllers/add_chronicDisease_controller.dart';
+import '../widgets/custom_form_button.dart';
 import '../widgets/custom_text.dart';
-import '../widgets/custom_textFormField.dart';
+import '../widgets/custom_text_form_field.dart';
 
 class AddChronicDiseaseScreen extends StatelessWidget {
   AddChronicDiseaseScreen({Key? key}) : super(key: key);

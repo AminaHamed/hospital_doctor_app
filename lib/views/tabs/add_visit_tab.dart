@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hospital_app/views/widgets/custom_formButton.dart';
-import 'package:hospital_app/views/widgets/custom_textFormField.dart';
+import 'package:hospital_app/views/widgets/custom_form_button.dart';
+import 'package:hospital_app/views/widgets/custom_text_form_field.dart';
 
 import '../../controllers/add_visit_controller.dart';
 import '../widgets/custom_text.dart';

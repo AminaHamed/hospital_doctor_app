@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 import 'package:hospital_app/controllers/add_newPatient_controller.dart';
 import 'package:hospital_app/views/widgets/custom_appBar.dart';
 import 'package:hospital_app/views/widgets/custom_drawer.dart';
-import 'package:hospital_app/views/widgets/custom_formButton.dart';
-import 'package:hospital_app/views/widgets/custom_textFormField.dart';
+import 'package:hospital_app/views/widgets/custom_form_button.dart';
+import 'package:hospital_app/views/widgets/custom_text_form_field.dart';
 
 import '../widgets/custom_text.dart';
 

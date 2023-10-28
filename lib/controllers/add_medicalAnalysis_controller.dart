@@ -1,7 +1,9 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hospital_app/api/api_manager.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 
@@ -46,14 +48,7 @@ class AddMedicalAnalysisController extends GetxController {
   }
 
   Future<void> sendToServer(String id) async {
-    Get.defaultDialog(
-      title: 'Wait',
-      content: const Center(
-          child: CircularProgressIndicator(
-        color: AppColor.primaryColor,
-      )),
-      barrierDismissible: false,
-    );
+    ApiManager.showWaitDialog();
 
     String url =
         'http://momahgoub172-001-site1.atempurl.com/api/MedicalAnalysis/AddMedicalAnalysis';
@@ -91,26 +86,17 @@ class AddMedicalAnalysisController extends GetxController {
             Get.back();
             Get.back();
           });
-      print('data sent successfully.');
-      notesController.text = '';
+      notesController.clear();
       _pickedImage = null;
       update();
     } else {
-      Get.defaultDialog(
-          content: Text('Failed to send data. Error: ${response.statusCode} ',
-              style: const TextStyle(
-                  fontSize: 18,
-                  color: AppColor.grey,
-                  fontWeight: FontWeight.bold)),
-          buttonColor: AppColor.primaryColor,
-          textConfirm: 'OK',
-          onConfirm: () {
-            Get.back(canPop: false);
-          });
+      ApiManager.showMessageDialog(
+          msg: 'Failed to send data. Error: ${response.statusCode} ');
 
-      print('Failed to send data. Status code: ${response.statusCode}');
       String responseBody = await response.stream.bytesToString();
-      print('Response body: $responseBody');
+      if (kDebugMode) {
+        print('Response body: $responseBody');
+      }
     }
   }
 

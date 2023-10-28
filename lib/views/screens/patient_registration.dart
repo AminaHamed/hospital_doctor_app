@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 import '../../controllers/patienRegistration_controller.dart';
 import '../widgets/custom_appBar.dart';
 import '../widgets/custom_drawer.dart';
-import '../widgets/custom_formButton.dart';
-import '../widgets/custom_textFormField.dart';
+import '../widgets/custom_form_button.dart';
+import '../widgets/custom_text_form_field.dart';
 
 class PatientRegistrationScreen extends StatelessWidget {
   PatientRegistrationScreen({Key? key}) : super(key: key);

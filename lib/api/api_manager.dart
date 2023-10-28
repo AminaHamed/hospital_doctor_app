@@ -1,60 +1,18 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hospital_app/models/AddChronicRes.dart';
-import 'package:hospital_app/models/AddVisitRes.dart';
-import 'package:hospital_app/models/VisitsRes.dart';
+import 'package:hospital_app/models/add_chronicRes.dart';
+import 'package:hospital_app/models/add_visitRes.dart';
+import 'package:hospital_app/models/visitsRes.dart';
 import 'package:http/http.dart' as http;
 
 import '../core/constants/app_color.dart';
-import '../models/PatientInformation.dart';
+import '../models/patient_information.dart';
 
 class ApiManager {
   static const String baseUrl = "momahgoub172-001-site1.atempurl.com";
-
-  static deleteFunction(http.Response response) {
-    if (response.statusCode == 200) {
-      Get.defaultDialog(
-          content: const Text('Data Deleted successfully!',
-              style: TextStyle(
-                  fontSize: 18,
-                  color: AppColor.grey,
-                  fontWeight: FontWeight.bold)),
-          buttonColor: AppColor.primaryColor,
-          textConfirm: 'OK',
-          onConfirm: () {
-            Get.back(canPop: false);
-          });
-      print('Data Deleted successfully!');
-    } else if (response.statusCode == 404) {
-      Get.defaultDialog(
-          content: const Text('Data not found!',
-              style: TextStyle(
-                  fontSize: 18,
-                  color: AppColor.grey,
-                  fontWeight: FontWeight.bold)),
-          buttonColor: AppColor.primaryColor,
-          textConfirm: 'OK',
-          onConfirm: () {
-            Get.back(canPop: false);
-          });
-      print('Data not found!');
-    } else {
-      Get.defaultDialog(
-          content: Text('${response.statusCode} ${response.body}',
-              style: const TextStyle(
-                  fontSize: 18,
-                  color: AppColor.grey,
-                  fontWeight: FontWeight.bold)),
-          buttonColor: AppColor.primaryColor,
-          textConfirm: 'OK',
-          onConfirm: () {
-            Get.back(canPop: false);
-          });
-      print('${response.statusCode} ${response.body}');
-    }
-  }
 
   static showWaitDialog() {
     Get.defaultDialog(
@@ -66,6 +24,35 @@ class ApiManager {
       barrierDismissible: false,
     );
   }
+
+  static showMessageDialog(
+      {required String msg, bool canPop = false, void Function()? onConfirm}) {
+    Get.defaultDialog(
+        content: Text(msg,
+            style: const TextStyle(
+                fontSize: 18,
+                color: AppColor.grey,
+                fontWeight: FontWeight.bold)),
+        buttonColor: AppColor.primaryColor,
+        textConfirm: 'OK',
+        onConfirm: () {
+          Get.back(canPop: canPop);
+        });
+  }
+
+  static deleteFunction(http.Response response) {
+    if (response.statusCode == 200) {
+      showMessageDialog(msg: "Data Deleted successfully!");
+      if (kDebugMode) {
+        print('Data Deleted successfully!');
+      }
+    } else if (response.statusCode == 404) {
+      showMessageDialog(msg: 'Data not found!');
+    } else {
+      showMessageDialog(msg: '${response.statusCode} ${response.body}');
+    }
+  }
+
 
   static Future<http.Response> register(
       {required String fullName,
@@ -148,7 +135,9 @@ class ApiManager {
       return await http.post(Uri.parse(apiUrl),
           headers: headers, body: jsonData);
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -157,8 +146,6 @@ class ApiManager {
     String apiUrl =
         'http://momahgoub172-001-site1.atempurl.com/api/PreviousVisits/AddVisit?PatientId=$id';
     try {
-      // Map<String, dynamic> map = addVisitRes.toJson();
-
       Map<String, dynamic> data = {
         "visitDate": addVisitRes.visitDate.toString(),
         "pharma": [
@@ -169,14 +156,6 @@ class ApiManager {
         ]
       };
 
-      // List<Map<String, dynamic>> data = [
-      //   {
-      //     "visitDate": addVisitRes.visitDate.toString(),
-      //     "diagnosis": addVisitRes.pharmaceutical.toString(),
-      //     "pharmaceutical": addVisitRes.diagnosis.toString()
-      //   }
-      // ];
-      // String jsonData = json.encode(map);
       String jsonData = json.encode(data);
       Map<String, String> headers = {
         'accept': '*/*',
@@ -185,7 +164,9 @@ class ApiManager {
       return await http.post(Uri.parse(apiUrl),
           headers: headers, body: jsonData);
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -250,11 +231,19 @@ class ApiManager {
     http.Response response =
         await http.post(Uri.parse(apiUrl), headers: headers, body: jsonData);
     if (response.statusCode == 200) {
-      print('Data sent successfully!');
-      print('Failed to send data. Error: ${response.body}');
+      if (kDebugMode) {
+        print('Data sent successfully!');
+      }
+      if (kDebugMode) {
+        print('Failed to send data. Error: ${response.body}');
+      }
     } else {
-      print('Failed to send data. Error: ${response.statusCode}');
-      print('Failed to send data. Error: ${response.body}');
+      if (kDebugMode) {
+        print('Failed to send data. Error: ${response.statusCode}');
+      }
+      if (kDebugMode) {
+        print('Failed to send data. Error: ${response.body}');
+      }
     }
   }
 }
