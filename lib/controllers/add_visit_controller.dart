@@ -2,29 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hospital_app/api/api_manager.dart';
 import 'package:hospital_app/models/add_visitRes.dart';
+import 'package:hospital_app/utils/common_controller.dart';
 import 'package:http/http.dart' as http;
 
 import '../utils/date_utils.dart';
 
-class AddVisitController extends GetxController {
-  DateTime selectedData = DateTime.now();
+class AddVisitController extends CommonController {
   TextEditingController diagnosisController = TextEditingController();
   TextEditingController pharmaceuticalController = TextEditingController();
-
-  void showMyDatePicker(BuildContext context) async {
-    var selectedPickerDate = await showDatePicker(
-        context: context,
-        initialDate: selectedData,
-        firstDate: DateTime.now().subtract(const Duration(days: 365)),
-        lastDate: DateTime.now()
-        // .add(const Duration(days: 365)),
-        );
-    if (selectedPickerDate == null) {
-      return;
-    }
-    selectedData = selectedPickerDate;
-    update();
-  }
 
   String? validateDiagnosis(String value) {
     if (value.isEmpty || value.trim().isEmpty) {

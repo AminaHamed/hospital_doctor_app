@@ -1,51 +1,14 @@
-import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hospital_app/api/api_manager.dart';
+import 'package:hospital_app/utils/common_controller.dart';
 import 'package:http/http.dart' as http;
-import 'package:image_picker/image_picker.dart';
 
 import '../core/constants/app_color.dart';
 
-class AddXRayController extends GetxController {
-  File? _pickedImage;
-  DateTime selectedData = DateTime.now();
-  TextEditingController notesController = TextEditingController();
-
-  String? validateNotes(String value) {
-    if (value.isEmpty || value.trim().isEmpty) {
-      return 'Please enter a valid Notes.';
-    }
-    return null;
-  }
-
-  void showMyDatePicker(BuildContext context) async {
-    var selectedPickerDate = await showDatePicker(
-      context: context,
-      initialDate: selectedData,
-      firstDate: DateTime.now().subtract(const Duration(days: 365)),
-      lastDate: DateTime.now().add(const Duration(days: 365)),
-    );
-    if (selectedPickerDate == null) {
-      return;
-    }
-    selectedData = selectedPickerDate;
-    update();
-  }
-
-  File? get pickedImage => _pickedImage;
-
-  Future<void> pickImage() async {
-    final ImagePicker _picker = ImagePicker();
-    final XFile? pickedFile =
-        await _picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      _pickedImage = File(pickedFile.path);
-      update();
-    }
-  }
+class AddXRayController extends CommonController {
   Future<void> sendToServer(String id) async {
     ApiManager.showWaitDialog();
     String url = 'http://momahgoub172-001-site1.atempurl.com/api/XRay/AddXRay';
@@ -59,13 +22,10 @@ class AddXRayController extends GetxController {
     request.fields['patientId'] = patientId;
     request.fields['notes'] = notes;
     if (pickedImage != null) {
-      var imageStream = http.ByteStream(_pickedImage!.openRead());
-      var length = await _pickedImage!.length();
+      var imageStream = http.ByteStream(pickedImageFile!.openRead());
+      var length = await pickedImageFile!.length();
       var multipartFile = http.MultipartFile('imageFile', imageStream, length,
-          filename: _pickedImage!
-              .path
-              .split("/")
-              .last);
+          filename: pickedImageFile!.path.split("/").last);
 
       request.files.add(multipartFile);
     }
@@ -85,9 +45,9 @@ class AddXRayController extends GetxController {
             Get.back();
             Get.back();
           });
-      _pickedImage = null;
+      pickedImageFile = null;
       update();
-      notesController.text = '';
+      notesController.clear();
     } else {
       ApiManager.showMessageDialog(
           msg: 'Failed to send data. Error: ${response.statusCode} ');

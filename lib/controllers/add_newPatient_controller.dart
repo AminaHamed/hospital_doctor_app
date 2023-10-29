@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hospital_app/api/api_manager.dart';
 import 'package:hospital_app/core/constants/app_routes.dart';
+import 'package:hospital_app/utils/common_controller.dart';
 import 'package:http/http.dart' as http;
 
 import '../core/constants/app_color.dart';
 import '../models/patientRes.dart';
 
-class AddNewPatientController extends GetxController {
+class AddNewPatientController extends CommonController {
   final TextEditingController idController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
   final TextEditingController genderController = TextEditingController();
   final TextEditingController ageController = TextEditingController();
 
@@ -26,15 +26,6 @@ class AddNewPatientController extends GetxController {
     return null;
   }
 
-  String? validatePhone(String value) {
-    if (value.isEmpty || value.trim().isEmpty) {
-      return 'Please enter a phone number.';
-    }
-    if (!(value.isNumericOnly)) {
-      return 'Only Numbers should be Entered.';
-    }
-    return null;
-  }
 
   String? validateAge(String value) {
     if (value.isEmpty || value.trim().isEmpty) {
@@ -56,15 +47,6 @@ class AddNewPatientController extends GetxController {
     return null;
   }
 
-  String? validateName(String value) {
-    if (value.isEmpty || value.trim().isEmpty) {
-      return 'Please enter a valid Name.';
-    }
-    if (!(value.isAlphabetOnly)) {
-      return 'Only Alphabet should be Entered.';
-    }
-    return null;
-  }
 
   Future<void> sendData() async {
     PatientRes p = PatientRes();

@@ -2,24 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hospital_app/api/api_manager.dart';
 import 'package:hospital_app/models/add_chronicRes.dart';
+import 'package:hospital_app/utils/common_controller.dart';
 import 'package:http/http.dart' as http;
 
 import '../core/constants/app_color.dart';
 
-class AddChronicDiseaseController extends GetxController {
+class AddChronicDiseaseController extends CommonController {
   TextEditingController nameController = TextEditingController();
   TextEditingController treatingController = TextEditingController();
   late String patientID;
-
-  String? validateName(String value) {
-    if (value.isEmpty || value.trim().isEmpty) {
-      return 'Please enter a Name.';
-    }
-    if (value.isNumericOnly) {
-      return 'Enter a String';
-    }
-    return null;
-  }
 
   String? validateTreat(String value) {
     if (value.isEmpty || value.trim().isEmpty) {
@@ -33,14 +24,7 @@ class AddChronicDiseaseController extends GetxController {
 
   sendData(String id) async {
     patientID = id;
-    Get.defaultDialog(
-      title: 'Wait',
-      content: const Center(
-          child: CircularProgressIndicator(
-        color: AppColor.primaryColor,
-      )),
-      barrierDismissible: false,
-    );
+    ApiManager.showWaitDialog();
     AddChronicRes addChronicRes = AddChronicRes(
         patientId: patientID,
         treatingMedicines: treatingController.text,
@@ -60,25 +44,12 @@ class AddChronicDiseaseController extends GetxController {
             Get.back();
             Get.back();
           });
-      print('Data sent successfully!');
-      nameController.text = '';
-      treatingController.text = '';
+      nameController.clear();
+      treatingController.clear();
     } else {
-      Get.defaultDialog(
-          content: Text(
-              'Failed to send data. Error: ${response?.statusCode},${response?.body} ${response?.request} ',
-              style: const TextStyle(
-                  fontSize: 18,
-                  color: AppColor.grey,
-                  fontWeight: FontWeight.bold)),
-          buttonColor: AppColor.primaryColor,
-          textConfirm: 'OK',
-          onConfirm: () {
-            Get.back(canPop: false);
-          });
-      print('Failed to send data. Error: ${response?.statusCode}');
-      print('Response Body: ${response?.body}');
-      print('  ${response?.request}');
+      ApiManager.showMessageDialog(
+          msg:
+              'Failed to send data. Error: ${response?.statusCode},${response?.body} ${response?.request} ');
     }
     //''
   }

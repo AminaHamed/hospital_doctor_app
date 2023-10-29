@@ -1,22 +1,12 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hospital_app/api/api_manager.dart';
 import 'package:hospital_app/core/constants/app_routes.dart';
 
-class PatientRegistrationController extends GetxController {
-  final TextEditingController numberController = TextEditingController();
+import '../utils/common_controller.dart';
+
+class PatientRegistrationController extends CommonController {
   String patientID = '';
   late var apiData;
-
-  String? validateNumber(String value) {
-    if (value.isEmpty || value.trim().isEmpty) {
-      return 'Please enter a digit number.';
-    }
-    if (!(value.isNumericOnly)) {
-      return 'Only Numbers should be Entered.';
-    }
-    return null;
-  }
 
   makeAPICall(String ID) async {
     patientID = numberController.text;
@@ -31,9 +21,4 @@ class PatientRegistrationController extends GetxController {
     }
   }
 
-  @override
-  void dispose() {
-    numberController.dispose();
-    super.dispose();
-  }
 }

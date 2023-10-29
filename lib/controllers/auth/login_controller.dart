@@ -5,42 +5,9 @@ import 'package:http/http.dart' as http;
 
 import '../../core/constants/app_color.dart';
 import '../../core/constants/app_routes.dart';
+import '../../utils/common_controller.dart';
 
-class LoginController extends GetxController {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-
-  String? validateEmail(String value) {
-    final emailRegExp = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
-    if (!emailRegExp.hasMatch(value) || value.trim().isEmpty) {
-      return 'Enter a valid email address';
-    }
-    return null;
-  }
-
-  String? validatePassword(String value) {
-    if (value.length < 6) {
-      return 'Password must be at least 6 characters long';
-    }
-
-    // Check if the password contains at least one digit.
-    if (!value.contains(RegExp(r'\d'))) {
-      return 'Password must contain at least one digit';
-    }
-
-    // Check if the password contains at least one uppercase character.
-    if (!value.contains(RegExp(r'[A-Z]'))) {
-      return 'Password must contain at least one uppercase letter';
-    }
-
-    // Check if the password contains at least one special character.
-    if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-      return 'Password must contain at least one special character';
-    }
-
-    return null;
-  }
-
+class LoginController extends CommonController {
   sendData() async {
     String email = emailController.text;
     String password = passwordController.text;
@@ -48,8 +15,8 @@ class LoginController extends GetxController {
         await ApiManager.login(email: email, password: password);
     Get.back(canPop: false);
     if (response.statusCode == 200) {
-      emailController.text = '';
-      passwordController.text = '';
+      emailController.clear();
+      passwordController.clear();
       Get.defaultDialog(
           content: const Text('Login successful!',
               style: TextStyle(
@@ -62,17 +29,8 @@ class LoginController extends GetxController {
             Get.offNamed(AppRoutes.addPatient);
           });
     } else {
-      Get.defaultDialog(
-          content: Text('Error: ${response.statusCode} ${response.body}',
-              style: const TextStyle(
-                  fontSize: 18,
-                  color: AppColor.grey,
-                  fontWeight: FontWeight.bold)),
-          buttonColor: AppColor.primaryColor,
-          textConfirm: 'OK',
-          onConfirm: () {
-            Get.back(canPop: false);
-          });
+      ApiManager.showMessageDialog(
+          msg: 'Error: ${response.statusCode} ${response.body}');
     }
   }
 }
